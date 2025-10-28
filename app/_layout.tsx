@@ -1,24 +1,47 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { Ionicons } from "@expo/vector-icons";
+import { Tabs } from "expo-router";
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
-
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-
+export default function RootLayout(){
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: "tomato",
+        tabBarInactiveTintColor: "gray",
+        headerShown: true, // show screen header
+      }}
+    >
+
+      <Tabs.Screen
+        name="screens/hello"
+        options={{
+          title: "Hello",
+          tabBarIcon: ({color, size}) => (
+            <Ionicons name="happy" color={color} size={size}/>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="screens/test"
+        options={{
+          title: "Test",
+          tabBarIcon: ({color, size}) => (
+            <Ionicons name="document-text" color={color} size={size}/>
+          ),
+        }}
+        />
+
+    </Tabs>
   );
 }
+
+// export default function RootLayout() {
+//   return ( 
+    
+//     <Tabs>
+//       <Tabs.Screen name="index" options={{title: "index"}}/>
+//       <Tabs.Screen name="screens/test" options={{title: "Test"}}/>
+//       <Tabs.Screen name="screens/hello" options={{title: "Hello"}}/>
+//     </Tabs>
+
+//   );
+// }
